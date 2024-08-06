@@ -6,7 +6,7 @@ public class DetectionLeft : MonoBehaviour
 {
     public bool WallLeft;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Wall"))
         {
@@ -15,7 +15,7 @@ public class DetectionLeft : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerEx2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Wall"))
         {
