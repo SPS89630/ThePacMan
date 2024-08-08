@@ -21,6 +21,7 @@ public class PlayerBehavior : MonoBehaviour
     DetectionLeft DetectionLeft;
     DetectionRight DetectionRight;
     DetectionUp DetectionUp;
+    ScenesManager ScenesManager;
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class PlayerBehavior : MonoBehaviour
         DetectionLeft = GameObject.Find("DetectLeft").GetComponent<DetectionLeft>();
         DetectionRight = GameObject.Find("DetectRight").GetComponent<DetectionRight>();
         DetectionUp = GameObject.Find("DetectUp").GetComponent<DetectionUp>();
+        ScenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
     }
 
     void Update()
@@ -48,7 +50,18 @@ public class PlayerBehavior : MonoBehaviour
         if (Input.GetKey(KeyCode.S) && !isMoving && DetectionDown != null && !DetectionDown.WallDown)
             StartCoroutine(MovePlayer(Vector3.down));
 
+        // Score Counter
         scoreDisplay.text = "SCORE " + Score.ToString();
+
+        if (Lives <= 0)
+        {
+            ScenesManager.LoadDeathScene();
+        }
+
+        if (Score == 200)
+        {
+            EnemyRed = true;
+        }
     }
 
     // IEnumerator that makes the player move

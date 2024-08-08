@@ -22,6 +22,7 @@ public class EnemyBehavior : MonoBehaviour
 
     void Start()
     {
+        StartPos0.gameObject.SetActive(false);
         CurrentPos = 11;
         Player = GameObject.Find("Player").GetComponent<PlayerBehavior>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
@@ -146,8 +147,17 @@ public class EnemyBehavior : MonoBehaviour
 
     private IEnumerator EnemyDeath()
     {
-            transform.position = Vector3.MoveTowards(transform.position, StartPos0.position, .05f);
-
+        StartPos0.gameObject.SetActive(true);
+        transform.position = Vector3.MoveTowards(transform.position, StartPos0.position, .01f);
+        if (transform.position == StartPos0.position)
+        {
+            Player.PowerMode = false;
+            if (!Player.EnemyRed)
+            {
+                Player.EnemyRed = true;
+            }
+            StartPos0.gameObject.SetActive(false);
+        }
         yield return null;
     }
 }
